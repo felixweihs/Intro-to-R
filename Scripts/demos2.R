@@ -7,3 +7,7 @@ read_excel("data/gapminder.xlsx", sheet = 1, range = "A1:E4")
 
 #Writing data out
 write_csv(gapminder_excel, "results/gapminder_output.csv")
+
+Australia <- gapminder_excel %>% 
+  filter (country == "Australia") %>% 
+  write_csv(Australia, "results/australia.csv")

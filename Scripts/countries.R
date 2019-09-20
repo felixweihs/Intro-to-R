@@ -106,3 +106,25 @@ group_by_continent <- gapminder %>%
   group_by(continent) %>% 
   summarise(mean_pop = mean(pop), median_pop = median(pop))
 group_by_continent
+
+#arrange and group exercises
+arrange(gapminder, gdpPercap)
+arrange(gapminder, desc(gdpPercap))
+
+group_by_country <- gapminder %>% 
+  group_by(country) %>% 
+  summarise(mean_lifeExp = mean(lifeExp)) %>% 
+  arrange(desc(mean_lifeExp)) %>% 
+  filter(mean_lifeExp == min(mean_lifeExp) + mean_lifeExp == max(mean_lifeExp))
+group_by_country
+
+summarise(gapminder, num_rows = n())
+summarise(group_by_country, num_rows = n())
+
+#group by countries
+#filter or select by years 1987 and 2007
+#arrange by life expectance descending
+gapminder %>% 
+  group_by(country) %>% 
+  select(year == "2007")
+group_by_country

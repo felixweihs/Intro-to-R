@@ -41,7 +41,8 @@ filter(gapminder, life_Exp >= 80, gdpPercap >= 30000)
 ANZAC <- filter(gapminder, country %in% c("Australia", "New Zealand"))
 ANZAC
 
-Australia <- filter(select(gapminder, country, year, pop), country == "Australia")
+Australia <- filter( select(gapminder, country, year, pop), country == "Australia")
+Australia
 Australia <- select(filter(gapminder, country == "Australia"), country, year, pop)
 
 gapminder %>% select (year,pop)
@@ -51,5 +52,31 @@ Australia1997 <- gapminder %>%
   filter (country == "Australia") %>% 
   filter (year >= 1997)
 
+Australia <- gapminder %>% 
+  filter(country == "Australia") %>% 
+  select(country, year, pop) %>% 
+  rename(population = pop)
+Australia
+
+#Mutate
+RichCountries <- mutate(gapminder, gdp = gdpPercap * pop) %>% 
+  filter(gdp >= 1000000000000)
+RichCountries
+
+populationM <- mutate(gapminder, populationM = pop / 10^6)
+populationM
+
+populationM <- mutate(gapminder, log_of_pop = log(pop))
+str_sub("A long bit of text", start = 1, end = 5)
+
+populationM <- mutate(gapminder, country_abbr = str_sub(country, start = 1, end = 3))
+populationM <- mutate(gapminder, country_n_length = str_length(country))
+
+populationM <- mutate(
+  gapminder, 
+  lifeExp_days = lifeExp * 365, 
+  gdp_m = gdpPercap * pop / 10^6
+  )
 
 
+                      

@@ -58,7 +58,7 @@ Australia <- gapminder %>%
   rename(population = pop)
 Australia
 
-#Mutate
+#Mutate and transmute
 RichCountries <- mutate(gapminder, gdp = gdpPercap * pop) %>% 
   filter(gdp >= 1000000000000)
 RichCountries
@@ -75,8 +75,34 @@ populationM <- mutate(gapminder, country_n_length = str_length(country))
 populationM <- mutate(
   gapminder, 
   lifeExp_days = lifeExp * 365, 
-  gdp_m = gdpPercap * pop / 10^6
+  gdp = gdpPercap * pop,
+  gdp_m = gdp/ 10^9
   )
 
+populationM <- transmute(
+  gapminder, 
+  country = str_sub(country, start = 1, end = 3),
+  year = year,
+  lifeExp = lifeExp * 365, 
+    )
+populationM <- filter(populationM, year == 2007)
+  
+#Summarising data
+summarise(
+  gapminder, 
+  mean_pop_M = mean(pop)/10^6,
+  median_pop_M = median(pop)/10^6,
+  )
 
-                      
+summarise_if(gapminder, is.numeric, mean)
+
+#grouping
+
+group_by_country <- group_by(gapminder, country)
+group_by_country
+summarise(group_by_country, mean_pop = mean(pop))
+summarise(group_by_country, pop_1952 = min(pop)/10^6, pop_2007 = max(pop)/10^6)
+
+group_by_continent <- group_by(gapminder, continent)
+group_by_continent
+summarise(group_by_continent, mean_pop = mean(pop), median_pop = median(pop))

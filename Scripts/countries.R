@@ -16,7 +16,10 @@ summary(gapminder)
 gapminder_factor <- read_csv("data/gapminder.csv", col_types = cols(continent = col_factor()))
 summary(gapminder_factor)
 rm(gapminder_factor_country)
-select(gapminder, year, country, pop)
+NewSelection <- select(gapminder, country, year, pop)
+NewSelection <- filter(select(gapminder, country, year, pop), country == "Australia")
+NewSelection
+
 select(gapminder, 3, 1, 5)
 select(gapminder, 3:5)
 select(gapminder, -lifeExp)
@@ -33,3 +36,20 @@ filter(gapminder, year >= 2007)
 highLifeExp <- filter(gapminder, life_Exp >= 80)
 filter(gapminder, continent == "Europe", life_Exp >= 80)
 filter(gapminder, life_Exp >= 80, gdpPercap >= 30000)
+
+#piping
+ANZAC <- filter(gapminder, country %in% c("Australia", "New Zealand"))
+ANZAC
+
+Australia <- filter(select(gapminder, country, year, pop), country == "Australia")
+Australia <- select(filter(gapminder, country == "Australia"), country, year, pop)
+
+gapminder %>% select (year,pop)
+filter(gapminder, country == "Australia", year>= 1997)
+
+Australia1997 <- gapminder %>% 
+  filter (country == "Australia") %>% 
+  filter (year >= 1997)
+
+
+

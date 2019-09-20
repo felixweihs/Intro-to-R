@@ -124,7 +124,11 @@ summarise(group_by_country, num_rows = n())
 #group by countries
 #filter or select by years 1987 and 2007
 #arrange by life expectance descending
-gapminder %>% 
+challenge_country <- gapminder %>% 
   group_by(country) %>% 
-  select(year == "2007")
-group_by_country
+  filter(year == "2007" | year == "1987") %>% 
+  arrange(desc(lifeExp))
+
+
+challenge_country
+

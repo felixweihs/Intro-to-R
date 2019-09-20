@@ -10,4 +10,5 @@ write_csv(gapminder_excel, "results/gapminder_output.csv")
 
 Australia <- gapminder_excel %>% 
   filter (country == "Australia") %>% 
-  write_csv(Australia, "results/australia.csv")
+  select (country, year, pop) %>% 
+  write_csv("results/australia.csv")

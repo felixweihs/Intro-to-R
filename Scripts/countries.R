@@ -97,12 +97,12 @@ summarise(
 summarise_if(gapminder, is.numeric, mean)
 
 #grouping
-
 group_by_country <- group_by(gapminder, country)
 group_by_country
 summarise(group_by_country, mean_pop = mean(pop))
 summarise(group_by_country, pop_1952 = min(pop)/10^6, pop_2007 = max(pop)/10^6)
 
-group_by_continent <- group_by(gapminder, continent)
+group_by_continent <- gapminder %>% 
+  group_by(continent) %>% 
+  summarise(mean_pop = mean(pop), median_pop = median(pop))
 group_by_continent
-summarise(group_by_continent, mean_pop = mean(pop), median_pop = median(pop))
